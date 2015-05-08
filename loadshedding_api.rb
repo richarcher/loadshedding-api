@@ -1,4 +1,6 @@
 require 'grape'
+require './region_repository'
+require './region_selector'
 
 module Loadshedding
   class API < Grape::API
@@ -11,10 +13,11 @@ module Loadshedding
         requires :long, type: Float, desc: "Longitude"
       end
       get do
-        regions = RepositoryRepository.all
+        regions = RegionRepository.all
         selector = RegionSelector.new(regions)
         region = selector.my_region(params[:lat], params[:long])
         region.zone
+        # "foobar"
       end
     end
 

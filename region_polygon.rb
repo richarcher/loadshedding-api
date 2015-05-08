@@ -1,3 +1,4 @@
+require 'openssl'
 require 'geokit'
 
 class RegionPolygon
