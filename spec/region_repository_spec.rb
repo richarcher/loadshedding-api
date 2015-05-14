@@ -24,7 +24,7 @@ describe "region repository" do
   end
 
   it "calls PolygonRegion with the correct coordinates" do
-    RegionRepository.stub(:file_data).and_return(json_stub)
+    expect(RegionRepository).to receive(:file_data).and_return(json_stub)
     expect(RegionPolygon).to receive(:new).with([["0","0"],["10","0"],["10","10"],["0","10"]])
     expect(RegionRepository.all.size).to eq(1)
   end
