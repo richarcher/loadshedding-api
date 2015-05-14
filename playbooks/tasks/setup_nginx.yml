@@ -1,0 +1,23 @@
+---
+  - name: install nginx
+    apt: name=nginx
+
+  - name: write nginx.conf
+    template: src=templates/nginx.conf.j2 dest=/etc/nginx/nginx.conf
+    notify:
+      - restart nginx
+
+  - name: delete default vhost
+    file: path=/etc/nginx/sites-enabled/default state=absent
+    notify:
+      - restart nginx
+
+  - name: add app config to site-available
+    template: src=templates/app.conf.j2 dest=/etc/nginx/sites-available/{{ app_name }}.conf
+    notify:
+      - restart nginx
+
+  - name: link app config to site-enabled
+    file: path=/etc/nginx/sites-enabled/{{ app_name }} src=/etc/nginx/sites-available/{{ app_name }}.conf state=link
+    notify:
+      - restart nginx

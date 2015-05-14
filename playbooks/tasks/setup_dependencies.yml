@@ -1,0 +1,10 @@
+---
+- name: update apt
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: install dependencies
+  apt: name="{{ item }}" state=latest
+  with_items:
+    - git
+
+

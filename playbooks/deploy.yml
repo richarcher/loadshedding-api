@@ -1,0 +1,12 @@
+---
+- hosts: all
+
+  tasks:
+    - include: tasks/deploy_install_ruby.yml
+    - include: tasks/deploy_application.yml
+    - include: tasks/deploy_puma.yml
+
+  vars_files:
+    - vars/vars.yml
+
+

@@ -1,0 +1,4 @@
+---
+ruby: ruby-2.2.0
+app_name: loadshedding-api
+app_directory: /vagrant/

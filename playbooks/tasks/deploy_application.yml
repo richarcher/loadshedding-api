@@ -1,0 +1,22 @@
+---
+
+# setup DB
+#- name: copy database config
+  #template: src=templates/database.yml.j2 dest={{app_directory}}config/database.yml
+
+- name: bundle install
+  command: bash -lc "cd {{ app_directory }} && bundle install"
+
+#- name: setup database dev
+  #command: bash -lc "cd {{ app_directory}} && bundle exec rake db:setup RAILS_ENV=development"
+
+#- name: setup database test
+  #command: bash -lc "cd {{ app_directory}} && bundle exec rake db:setup RAILS_ENV=test"
+
+#- name: run db migrations
+  #command: bash -lc "cd {{ app_directory}} && bundle exec rake db:migrate RAILS_ENV=development"
+
+#- name: run db migrations on test
+  #command: bash -lc "cd {{ app_directory}} && bundle exec rake db:migrate RAILS_ENV=test"
+
+

@@ -2,8 +2,6 @@ source 'https://rubygems.org'
 
 ruby "2.2.0"
 
-# Use postgres as the database for Active Record
-gem 'pg'
 gem 'geokit'
 gem 'grape'
 

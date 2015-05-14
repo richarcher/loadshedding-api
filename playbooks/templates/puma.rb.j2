@@ -1,0 +1,7 @@
+environment 'development'
+daemonize
+pidfile "{{app_directory}}tmp/puma/pid"
+state_path "{{app_directory}}tmp/puma/state"
+bind 'unix:///tmp/{{ app_name }}.sock'
+
+activate_control_app
