@@ -1,5 +1,5 @@
 require('json')
-require('./region')
+require('lib/region')
 
 
 class RegionRepository
@@ -24,7 +24,7 @@ class RegionRepository
   end
 
   def self.file_data
-    File.read('./zones.js')
+    File.read('./lib/zones.js')
   end
 
 end

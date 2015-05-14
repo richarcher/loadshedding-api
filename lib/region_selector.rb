@@ -1,4 +1,3 @@
-require('geokit')
 
 class RegionSelector
   def initialize(regions)

@@ -1,6 +1,6 @@
-require('rspec')
-require('./region_selector')
-require('./region')
+require('spec_helper')
+require('lib/region_selector')
+require('lib/region')
 
 
 describe "region" do

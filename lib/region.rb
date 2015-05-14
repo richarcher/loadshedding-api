@@ -1,4 +1,4 @@
-require('./region_polygon')
+require('lib/region_polygon')
 
 class Region
   attr_reader :name, :zone

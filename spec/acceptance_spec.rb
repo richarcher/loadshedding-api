@@ -1,6 +1,6 @@
-require('rspec')
-require('./region_repository')
-require('./region_selector')
+require('spec_helper')
+require('lib/region_repository')
+require('lib/region_selector')
 
 
 describe "Acceptance" do
