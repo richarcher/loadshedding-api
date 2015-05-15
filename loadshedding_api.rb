@@ -1,6 +1,6 @@
 require 'grape'
-require './region_repository'
-require './region_selector'
+require './lib/region_repository'
+require './lib/region_selector'
 
 module Loadshedding
   class API < Grape::API

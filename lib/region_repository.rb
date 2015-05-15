@@ -1,5 +1,5 @@
 require('json')
-require('lib/region')
+require('./lib/region')
 
 
 class RegionRepository
