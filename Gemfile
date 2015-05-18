@@ -4,6 +4,7 @@ ruby "2.2.0"
 
 gem 'geokit'
 gem 'grape'
+gem 'nokogiri'
 
 group :doc do
 end
