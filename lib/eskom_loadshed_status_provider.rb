@@ -1,5 +1,5 @@
-require 'loadshedding_status'
-require 'eskom_http_connection'
+require './lib/loadshedding_status'
+require './lib/eskom_http_connection'
 
 class EskomLoadshedStatusProvider
   def self.get_status

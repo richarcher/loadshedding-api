@@ -1,7 +1,7 @@
 require 'nokogiri'
 
-require 'loadshedding_status'
-require 'cape_town_http_connection'
+require './lib/loadshedding_status'
+require './lib/cape_town_http_connection'
 
 class CapeTownLoadshedStatusProvider
   def self.get_status
