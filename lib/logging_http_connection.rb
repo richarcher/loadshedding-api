@@ -1,4 +1,5 @@
 require 'logger'
+require 'fileutils'
 
 class LoggingHTTPConnection
 
@@ -16,15 +17,9 @@ class LoggingHTTPConnection
   private
 
   def log_result(result)
-    puts "log?"
     if result != @last_result
-      puts "log!"
-      #FileUtils.mkdir_p("./log")
-      puts "xx"
-      logger = Logger.new("#{@log_prefix}_#{Time.now}.log")
-      puts "yy"
-      puts "log/#{@log_prefix}_#{Time.now}.log"
-      puts "zz"
+      FileUtils::mkdir_p("log")
+      logger = Logger.new("log/#{@log_prefix}_#{Time.now}.log")
       logger.level = Logger::WARN
       logger.warn(result)
       logger.close
