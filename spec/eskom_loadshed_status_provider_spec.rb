@@ -28,35 +28,39 @@ describe "Eskom Loadshed Status Provider" do
     # 2 = stage 2
     # 3a = stage 3a
     # 3b = stage 3b
+    before :each do
+      @connection = double("Connection")
+      @eskom_provider = EskomLoadshedStatusProvider.new(@connection)
+    end
 
     it "defaults to none" do
-      expect(EskomLoadshedStatusProvider).to receive(:get_eskom_status).and_return("foobar")
-      compare_stage(EskomLoadshedStatusProvider.get_status, LoadsheddingStatus.none)
+      expect(@connection).to receive(:get_status_result).and_return("foobar")
+      compare_stage(@eskom_provider.get_status, LoadsheddingStatus.none)
     end
 
     it "converts 1 to none" do
-      expect(EskomLoadshedStatusProvider).to receive(:get_eskom_status).and_return("1")
-      compare_stage(EskomLoadshedStatusProvider.get_status, LoadsheddingStatus.none)
+      expect(@connection).to receive(:get_status_result).and_return("1")
+      compare_stage(@eskom_provider.get_status, LoadsheddingStatus.none)
     end
 
     it "converts 2 to stage1" do
-      expect(EskomLoadshedStatusProvider).to receive(:get_eskom_status).and_return("2")
-      compare_stage(EskomLoadshedStatusProvider.get_status, LoadsheddingStatus.stage1)
+      expect(@connection).to receive(:get_status_result).and_return("2")
+      compare_stage(@eskom_provider.get_status, LoadsheddingStatus.stage1)
     end
 
     it "converts 3 to stage2" do
-      expect(EskomLoadshedStatusProvider).to receive(:get_eskom_status).and_return("3")
-      compare_stage(EskomLoadshedStatusProvider.get_status, LoadsheddingStatus.stage2)
+      expect(@connection).to receive(:get_status_result).and_return("3")
+      compare_stage(@eskom_provider.get_status, LoadsheddingStatus.stage2)
     end
 
     it "converts 4 to stage3a" do
-      expect(EskomLoadshedStatusProvider).to receive(:get_eskom_status).and_return("4")
-      compare_stage(EskomLoadshedStatusProvider.get_status, LoadsheddingStatus.stage3a)
+      expect(@connection).to receive(:get_status_result).and_return("4")
+      compare_stage(@eskom_provider.get_status, LoadsheddingStatus.stage3a)
     end
 
     it "converts 5 to stage3b" do
-      expect(EskomLoadshedStatusProvider).to receive(:get_eskom_status).and_return("5")
-      compare_stage(EskomLoadshedStatusProvider.get_status, LoadsheddingStatus.stage3b)
+      expect(@connection).to receive(:get_status_result).and_return("5")
+      compare_stage(@eskom_provider.get_status, LoadsheddingStatus.stage3b)
     end
 
   end

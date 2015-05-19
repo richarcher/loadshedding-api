@@ -28,10 +28,14 @@ describe "Cape Town Loadshed Status Provider" do
     # 2 = stage 2
     # 3a = stage 3a
     # 3b = stage 3b
+    before :each do
+      @connection = double("Connection")
+      @capetown_provider = CapeTownLoadshedStatusProvider.new(@connection)
+    end
 
     it "defaults to none" do
-      expect(CapeTownLoadshedStatusProvider).to receive(:get_capetown_status_page).and_return("foobar")
-      compare_stage(CapeTownLoadshedStatusProvider.get_status, LoadsheddingStatus.none)
+      expect(@connection).to receive(:get_status_result).and_return("foobar")
+      compare_stage(@capetown_provider.get_status, LoadsheddingStatus.none)
     end
 
     def valid_html(html_content)
@@ -39,29 +43,45 @@ describe "Cape Town Loadshed Status Provider" do
     end
 
     it "converts 'LOADSHEDDING HAS BEEN SUSPENDED UNTIL FURTHER NOTICE' to none" do
-      expect(CapeTownLoadshedStatusProvider).to receive(:get_capetown_status_page).and_return(valid_html("LOADSHEDDING HAS BEEN SUSPENDED UNTIL FURTHER NOTICE"))
-      compare_stage(CapeTownLoadshedStatusProvider.get_status, LoadsheddingStatus.none)
+      expect(@connection).to receive(:get_status_result).and_return(valid_html("LOADSHEDDING HAS BEEN SUSPENDED UNTIL FURTHER NOTICE"))
+      compare_stage(@capetown_provider.get_status, LoadsheddingStatus.none)
+    end
+
+    it "converts anything with suspend to none" do
+      expect(@connection).to receive(:get_status_result).and_return(valid_html("LOADSHED IS suspended NOW"))
+      compare_stage(@capetown_provider.get_status, LoadsheddingStatus.none)
     end
 
     it "converts 'LOADSHEDDING IS IN STAGE 1' to stage1" do
-      expect(CapeTownLoadshedStatusProvider).to receive(:get_capetown_status_page).and_return(valid_html("LOADSHEDDING IS IN STAGE 1"))
-      compare_stage(CapeTownLoadshedStatusProvider.get_status, LoadsheddingStatus.stage1)
+      expect(@connection).to receive(:get_status_result).and_return(valid_html("LOADSHEDDING IS IN STAGE 1"))
+      compare_stage(@capetown_provider.get_status, LoadsheddingStatus.stage1)
     end
 
-    #it "converts 3 to stage2" do
-      #expect(CapeTownLoadshedStatusProvider).to receive(:get_capetown_status_page).and_return("3")
-      #compare_stage(CapeTownLoadshedStatusProvider.get_status, LoadsheddingStatus.stage2)
-    #end
+    it "converts anything without 'suspended' and with 'stage 1' to stage1" do
+      expect(@connection).to receive(:get_status_result).and_return(valid_html("LOADSHEDDING IS ABOUTS STAGE 1 OR THERE SOMEwhere"))
+      compare_stage(@capetown_provider.get_status, LoadsheddingStatus.stage1)
+    end
 
-    #it "converts 4 to stage3a" do
-      #expect(CapeTownLoadshedStatusProvider).to receive(:get_capetown_status_page).and_return("4")
-      #compare_stage(CapeTownLoadshedStatusProvider.get_status, LoadsheddingStatus.stage3a)
-    #end
+    it "converts anything without 'suspended' and with 'stage1' to stage1" do
+      expect(@connection).to receive(:get_status_result).and_return(valid_html("LOADSHEDDING IS ABOUTS stage1 OR THERE SOMEwhere"))
+      compare_stage(@capetown_provider.get_status, LoadsheddingStatus.stage1)
+    end
 
-    #it "converts 5 to stage3b" do
-      #expect(CapeTownLoadshedStatusProvider).to receive(:get_capetown_status_page).and_return("5")
-      #compare_stage(CapeTownLoadshedStatusProvider.get_status, LoadsheddingStatus.stage3b)
-    #end
+    it "converts anything without 'suspended' and with 'stage2' to stage2" do
+      expect(@connection).to receive(:get_status_result).and_return(valid_html("LOADSHEDDING IS ABOUTS StAge2 OR THERE SOMEwhere"))
+      compare_stage(@capetown_provider.get_status, LoadsheddingStatus.stage2)
+    end
+
+    it "converts anything without 'suspended' and with 'stage 3a' to stage3a" do
+      expect(@connection).to receive(:get_status_result).and_return(valid_html("LOADSHEDDING IS ABOUTS StAge 3a OR THERE SOMEwhere"))
+      compare_stage(@capetown_provider.get_status, LoadsheddingStatus.stage3a)
+    end
+
+    it "converts anything without 'suspended' and with 'stage3B' to stage3b" do
+      expect(@connection).to receive(:get_status_result).and_return(valid_html("LOADSHEDDING IS ABOUTS StAge3B OR THERE SOMEwhere"))
+      compare_stage(@capetown_provider.get_status, LoadsheddingStatus.stage3b)
+    end
+
 
   end
 end
