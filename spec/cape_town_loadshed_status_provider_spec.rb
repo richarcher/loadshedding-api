@@ -22,12 +22,14 @@ describe "Cape Town Loadshed Status Provider" do
     end
   end
 
-  describe "converting Eskom API to loadshed status values" do
+  describe "converting Cape Town ASPX to loadshed status values" do
     # 0 = no loadshedding
     # 1 = stage 1
     # 2 = stage 2
     # 3a = stage 3a
     # 3b = stage 3b
+    #
+    # CURRENTLY EXPERIENCING LOADSHEDDING STAGE 2
     before :each do
       @connection = double("Connection")
       @capetown_provider = CapeTownLoadshedStatusProvider.new(@connection)
