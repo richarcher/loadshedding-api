@@ -7,4 +7,7 @@ class SchedulePeriod
     @end_time = end_time
   end
 
+  def is_this_me_now?(my_zone)
+    my_zone == zone && end_time > Time.now && start_time < Time.now
+  end
 end

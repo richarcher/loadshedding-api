@@ -4,6 +4,6 @@ class Schedule
   end
 
   def is_it_me_now?(zone)
-    @periods.any? { |p| p.zone == zone && p.end_time > Time.now && p.start_time < Time.now }
+    @periods.any? { |p| p.is_this_me_now?(zone) }
   end
 end
