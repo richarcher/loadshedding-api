@@ -4,7 +4,9 @@ ruby "2.2.0"
 
 gem 'geokit'
 gem 'grape'
-gem 'nokogiri'
+
+gem 'nokogiri'   # for reading the HTML loadshedding page
+gem 'pdf-reader' # for reading the PDF schedule
 
 group :doc do
 end
