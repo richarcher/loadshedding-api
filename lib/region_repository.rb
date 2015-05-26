@@ -24,7 +24,7 @@ class RegionRepository
   end
 
   def self.file_data
-    File.read('./lib/zones.js')
+    File.read('./lib/data/zones.js')
   end
 
 end
