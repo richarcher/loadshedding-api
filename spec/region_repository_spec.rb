@@ -1,6 +1,5 @@
 require('spec_helper')
 require('lib/region_repository')
-require('lib/region_polygon')
 
 describe "region repository" do
   it "loads all regions" do
