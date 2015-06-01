@@ -30,6 +30,7 @@ describe "Cape Town Loadshed Status Provider" do
     # 3b = stage 3b
     #
     # CURRENTLY EXPERIENCING LOADSHEDDING STAGE 2
+    # STAGE 1 LOADSHEDDING SCHEDULED FROM 17:00 - 22:00  # Should this then be in combo with Eskom?  Or look for time?
     before :each do
       @connection = double("Connection")
       @capetown_provider = CapeTownLoadshedStatusProvider.new(@connection)
