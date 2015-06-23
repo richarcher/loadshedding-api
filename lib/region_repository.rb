@@ -1,4 +1,5 @@
 require('json')
+require 'region'
 
 class RegionRepository
   def self.all

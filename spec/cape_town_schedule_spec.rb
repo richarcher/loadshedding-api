@@ -48,6 +48,19 @@ describe 'CapeTownSchedule' do
         zone_ids = stage1.map { |z| z.zone }.flatten.uniq
         expect(zone_ids.size).to eq(12)
       end
+
+      it 'has 3 periods for zone 10 in stage 3B' do
+        schedule = CapeTownSchedule.for_date(Date.new(2015, 3, 1))
+        stage3b = schedule.periods.select { |s| s.stage == 'STAGE 3B' }
+        zone10 = stage3b.select { |s| s.zone == '10' }
+        expect(zone10.size).to eq(3)
+        expect(zone10[0].start_time).to eq(Time.new(2015,3,1,2,0))
+        expect(zone10[0].end_time).to eq(Time.new(2015,3,1,4,30))
+        expect(zone10[1].start_time).to eq(Time.new(2015,3,1,10,0))
+        expect(zone10[1].end_time).to eq(Time.new(2015,3,1,12,30))
+        expect(zone10[2].start_time).to eq(Time.new(2015,3,1,18,0))
+        expect(zone10[2].end_time).to eq(Time.new(2015,3,1,20,30))
+      end
     end
   end
 end
