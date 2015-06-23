@@ -52,14 +52,14 @@ class CapeTownSchedulePDFParser
     end_time = ''
 
     data.each do |data_row|
-      row = data_row.split(' ')
+      row = data_row.gsub(', ', ',').split(' ')
       new_row = []
 
       row.each_with_index do |d, idx|
         start_time = d if idx == 0
         end_time = d if idx == 1
         if idx > 1
-          col = { start_time: start_time, end_time: end_time, zones: d }
+          col = { start_time: start_time, end_time: end_time, zones: d.split(',') }
           new_row << col
         end
       end

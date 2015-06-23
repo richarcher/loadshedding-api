@@ -42,26 +42,49 @@ describe 'CapeTownSchedulePDFParser' do
     end
 
 
+    context 'stage 1' do
+      it 'the second row, first col is' do
+        row = CapeTownSchedulePDFParser.parse(@stages['STAGE 1'])[1]
+        expect(row[0]).to eq({start_time: '0:00', end_time: '2:30', zones: ['1']})
+      end
 
-    it 'the second row, first col is' do
-      row = CapeTownSchedulePDFParser.parse(@stages['STAGE 1'])[1]
-      expect(row[0]).to eq({start_time: '0:00', end_time: '2:30', zones: '1'})
+      it 'the second row, last col is' do
+        row = CapeTownSchedulePDFParser.parse(@stages['STAGE 1'])[1]
+        expect(row[15]).to eq({start_time: '0:00', end_time: '2:30', zones: ['8']})
+      end
+
+      it 'the last row, first col is' do
+        row = CapeTownSchedulePDFParser.parse(@stages['STAGE 1'])[12]
+        expect(row[0]).to eq({start_time: '22:00', end_time: '0:30', zones: ['12']})
+      end
+
+      it 'the last row, last col is' do
+        row = CapeTownSchedulePDFParser.parse(@stages['STAGE 1'])[12]
+        expect(row[15]).to eq({start_time: '22:00', end_time: '0:30', zones: ['3']})
+      end
     end
 
-    it 'the second row, last col is' do
-      row = CapeTownSchedulePDFParser.parse(@stages['STAGE 1'])[1]
-      expect(row[15]).to eq({start_time: '0:00', end_time: '2:30', zones: '8'})
+    context 'stage 2' do
+      it 'the second row, first col is' do
+        row = CapeTownSchedulePDFParser.parse(@stages['STAGE 2'])[1]
+        expect(row[0]).to eq({start_time: '0:00', end_time: '2:30', zones: ['1','9']})
+      end
     end
 
-    it 'the last row, first col is' do
-      row = CapeTownSchedulePDFParser.parse(@stages['STAGE 1'])[12]
-      expect(row[0]).to eq({start_time: '22:00', end_time: '0:30', zones: '12'})
+    context 'stage 3A' do
+      it 'the second row, first col is' do
+        row = CapeTownSchedulePDFParser.parse(@stages['STAGE 3A'])[12]
+        expect(row[0]).to eq({start_time: '22:00', end_time: '0:30', zones: ['12','4','8']})
+      end
     end
 
-    it 'the last row, last col is' do
-      row = CapeTownSchedulePDFParser.parse(@stages['STAGE 1'])[12]
-      expect(row[15]).to eq({start_time: '22:00', end_time: '0:30', zones: '3'})
+    context 'stage 3B' do
+      it 'the second row, first col is' do
+        row = CapeTownSchedulePDFParser.parse(@stages['STAGE 3B'])[12]
+        expect(row[15]).to eq({start_time: '22:00', end_time: '0:30', zones: ['15','7','11','3']})
+      end
     end
+
   end
 end
 

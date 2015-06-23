@@ -5,13 +5,16 @@ require 'schedule_period'
 class CapeTownSchedule
   def self.for_date(date)
     day = date.mday
-    CapeTownSchedulePDF.stages.map do |stage, data|
+
+    periods = CapeTownSchedulePDF.stages.map do |stage, data|
       stage_data = CapeTownSchedulePDFParser.to_day_date_hash(data)
 
       stage_data[day.to_s].map do |period|
         SchedulePeriod.new(period[:zones], as_date(period[:start_time], date), as_date(period[:end_time], date), stage)
       end
     end.flatten
+
+    Schedule.new(periods)
   end
 
   private
