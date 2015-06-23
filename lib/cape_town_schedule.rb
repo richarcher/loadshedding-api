@@ -1,16 +1,24 @@
 require 'cape_town_schedule_pdf'
+require 'cape_town_schedule_pdf_parser'
 require 'schedule_period'
 
 class CapeTownSchedule
-  def self.today
+  def self.for_date(date)
+    day = date.mday
     CapeTownSchedulePDF.stages.map do |stage, data|
-      #d = CapeTownSchedulePDFParser.parse_pdf(data)
-      #d.each do |day, time_range, zones|
+      stage_data = CapeTownSchedulePDFParser.to_day_date_hash(data)
 
-      #end
+      stage_data[day.to_s].map do |period|
+        SchedulePeriod.new(period[:zones], as_date(period[:start_time], date), as_date(period[:end_time], date), stage)
+      end
+    end.flatten
+  end
 
-      SchedulePeriod.new('-1', Time.now, Time.now, stage)
-    end
+  private
+
+  def self.as_date(time, date)
+    hours, minutes = time.split(':')
+    Time.new( date.year, date.month, date.day, hours.to_i, minutes.to_i)
   end
 
 
